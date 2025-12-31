@@ -36,3 +36,13 @@ class Solution:
             
         # STEP 7: If we got here, it's a palindrome!
         return True
+    """Symbols / Spaces dikhen (Trash) ➔ Skip karo (while loop use karke aage badho).
+Letters / Numbers dikhen (Valid) ➔ Compare karo (if condition se check karo).
+Code se Relation:
+Skip: Ye line wahi kar rahi hai 👇
+while ... not s[left].isalnum(): left += 1
+(Jab tak symbol hai, skip karte raho)
+Compare: Ye line checking kar rahi hai 👇
+if s[left].lower() != s[right].lower():<<<<----
+(Agar letter match nahi hua, toh False)
+Simple logic: Kachra hatao, kaam ki cheez compare karo. ✅"""
