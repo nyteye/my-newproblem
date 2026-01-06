@@ -1,0 +1,156 @@
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        # Convert string to list because Python strings are immutable
+        s_list = list(s)
+        
+        # Define pointers
+        left, right = 0, len(s) - 1
+        
+        # Use a set for O(1) constant time lookups
+        vowels = set("aeiouAEIOU")
+        
+        while left < right:
+            # Move left pointer forward until it finds a vowel
+            while left < right and s_list[left] not in vowels:
+                left += 1
+            
+            # Move right pointer backward until it finds a vowel
+            while left < right and s_list[right] not in vowels:
+                right -= 1
+            
+            # Swap the vowels found at left and right
+            s_list[left], s_list[right] = s_list[right], s_list[left]
+            
+            # Move pointers inward to continue the search
+            left += 1
+            right -= 1
+            
+        # Join the list back into a string and return
+        return "".join(s_list)
+
+# --- Driver Code to Test the Solution ---
+if __name__ == "__main__":
+    solution = Solution()
+    
+    # Test Case 1
+    input_str1 = "IceCreAm"
+    result1 = solution.reverseVowels(input_str1)
+    print(f"Input:  {input_str1}")
+    print(f"Output: {result1}")  # Expected: "AceCreIm"
+    print("-" * 20)
+
+    # Test Case 2
+    input_str2 = "leetcode"
+    result2 = solution.reverseVowels(input_str2)
+    print(f"Input:  {input_str2}")
+    print(f"Output: {result2}")  # Expected: "leotcede"
+
+"""Here is a microscopic, step-by-step dry run for the input string `s = "Ice"`.
+
+### **Phase 1: Initialization**
+
+**Line:** `s_list = list(s)`
+
+* **Action:** The computer creates a new list in memory.
+* **State:** `s_list` = `['I', 'c', 'e']`
+* Index 0: `'I'`
+* Index 1: `'c'`
+* Index 2: `'e'`
+
+
+
+**Line:** `left, right = 0, len(s) - 1`
+
+* **Action:** Calculate length (3). `right` becomes .
+* **State:**
+* `left` = **0** (Points to 'I')
+* `right` = **2** (Points to 'e')
+
+
+
+**Line:** `vowels = set("aeiouAEIOU")`
+
+* **Action:** A hash set is created in memory for fast lookup.
+
+---
+
+### **Phase 2: The Loop Begins**
+
+**Line:** `while left < right:`
+
+* **Check:** Is ? **True**.
+* **Action:** Enter the loop.
+
+#### **Inner Loop 1 (Left Seeker)**
+
+**Line:** `while left < right and s_list[left] not in vowels:`
+
+1. **Check 1:** `left < right` () is **True**.
+2. **Check 2:** `s_list[0]` is `'I'`. Is `'I'` **NOT** in vowels? **False** (It IS a vowel).
+
+* **Action:** The loop condition fails immediately.
+* **Result:** `left` remains **0**. (We found a vowel at the start).
+
+#### **Inner Loop 2 (Right Seeker)**
+
+**Line:** `while left < right and s_list[right] not in vowels:`
+
+1. **Check 1:** `left < right` () is **True**.
+2. **Check 2:** `s_list[2]` is `'e'`. Is `'e'` **NOT** in vowels? **False** (It IS a vowel).
+
+* **Action:** The loop condition fails immediately.
+* **Result:** `right` remains **2**. (We found a vowel at the end).
+
+#### **The Swap**
+
+**Line:** `s_list[left], s_list[right] = s_list[right], s_list[left]`
+
+* **Action:** Swap the content at index 0 and index 2.
+* `'I'` moves to index 2.
+* `'e'` moves to index 0.
+
+
+* **State of `s_list`:** `['e', 'c', 'I']`
+
+#### **Progress Pointers**
+
+**Line:** `left += 1`
+
+* **Action:** `left` becomes **1**.
+**Line:** `right -= 1`
+* **Action:** `right` becomes **1**.
+
+---
+
+### **Phase 3: The Second Iteration**
+
+**Line:** `while left < right:`
+
+* **Check:** Is `left` (1) < `right` (1)? **False**.
+* **Action:** The condition fails because  is not less than  (they are equal).
+* **Result:** The loop terminates. We do not enter the loop body.
+
+---
+
+### **Phase 4: Finalizing**
+
+**Line:** `return "".join(s_list)`
+
+* **Action:** The `join` method stitches the list elements together.
+* **Calculation:** `'e'` + `'c'` + `'I'`
+* **Result:** `"ecI"`
+
+### **Summary of Variable Changes**
+
+| Step | `left` | `right` | `s_list` (Memory) | Logic Note |
+| --- | --- | --- | --- | --- |
+| **Init** | 0 | 2 | `['I', 'c', 'e']` | Setup pointers at ends |
+| **Iter 1** | 0 | 2 | `['I', 'c', 'e']` | 'I' is vowel, Left stops |
+| **Iter 1** | 0 | 2 | `['I', 'c', 'e']` | 'e' is vowel, Right stops |
+| **Swap** | 0 | 2 | `['e', 'c', 'I']` | **SWAP!** 'I' <-> 'e' |
+| **Update** | 1 | 1 | `['e', 'c', 'I']` | Move pointers inward |
+| **Check** | 1 | 1 | `['e', 'c', 'I']` | `1 < 1` is False. Stop. |
+
+**Final Output:** `"ecI"`
+
+Would you like me to dry run a trickier example like `"hello"` where one pointer moves more than the other?"""
